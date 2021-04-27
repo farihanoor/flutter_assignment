@@ -8,50 +8,45 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+        home: Scaffold(
+            appBar: AppBar(
+              title: Text("Change Text by Pressing Button"),
+            ),
+            body: Center(child: TextChanger())));
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
+class TextChanger extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _TextChangerState createState() => _TextChangerState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  String textChange;
-  void _textChanger() {
+class _TextChangerState extends State<TextChanger> {
+  String _textStore = "Hello there!";
+
+  _textChanger() {
     setState(() {
-      textChange = "Text is changed";
+      _textStore = "Bye Bye";
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Hello'
+            Container(
+              child: Text("$_textStore",
+                style: TextStyle(fontSize: 22),
+              ),
+            ),
+            RaisedButton(
+              onPressed: () => _textChanger(),
+              child: Text("Click Here"),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _textChanger,
-        tooltip: 'Text Change',
-        child: Icon(Icons.add),
       ),
     );
   }
